@@ -28,7 +28,7 @@ form = resource_path("summary.ui")
 form_class = uic.loadUiType(form)[0]
 
 # scan 페이지 수 전역변수
-scan_cnt = 0
+# scan_cnt = 0
 
 
 #화면을 띄우는데 사용되는 Class 선언
@@ -141,10 +141,16 @@ class MainWindow(QMainWindow, form_class) :
 
     # capture_image, callback 메소드 실행 후 socket open, scan_cnt 1 증가
     def on_capture_complete(self):
-        client.send_file()
-        global scan_cnt
-        scan_cnt += 1
-        self.statusBar().showMessage(f'현재까지 스캔된 페이지: {scan_cnt} 장')
+        scan_size =  self.comboBox_size.currentIndex()
+        if scan_size == 'size 1':
+            client.send_file1()
+        elif scan_size == 'size 2':
+            client.send_file2()
+
+        # global scan_cnt
+        # scan_cnt += 1
+        # self.statusBar().showMessage(f'현재까지 스캔된 페이지: {scan_cnt} 장')
+        self.statusBar().showMessage('스캔 완료')
 
 
     def initbtnssummary(self):
@@ -156,8 +162,8 @@ class MainWindow(QMainWindow, form_class) :
         self.textEdit.setText(response)
 
         self.statusBar().showMessage('요약 완료')
-        global scan_cnt
-        scan_cnt = 0
+        # global scan_cnt
+        # scan_cnt = 0
 
 
     def initbtnreset(self):
@@ -165,8 +171,8 @@ class MainWindow(QMainWindow, form_class) :
         #self.label_summary.setText('')
         self.textEdit.clear()
         self.statusBar().showMessage('Ready')
-        global scan_cnt
-        scan_cnt = 0
+        # global scan_cnt
+        # scan_cnt = 0
 
 
     def closeEvent(self, event):
