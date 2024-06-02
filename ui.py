@@ -51,6 +51,7 @@ class MainWindow(QMainWindow, form_class) :
         self.initSTATUS()
         self.initMENU()
         self.initBTN()
+        self.textEdit.clear()
         # self.initLOGO()
 
     # # Logo initial
@@ -150,8 +151,9 @@ class MainWindow(QMainWindow, form_class) :
         # response = server 에서 응답으로 받는 값
         response = ''
         response = client.send_summary_signal()
-        self.label_summary.setFont(QFont('Arial', 12))
-        self.label_summary.setText(str(response))
+        # self.label_summary.setFont(QFont('Arial', 12))
+        # self.label_summary.setText(str(response))
+        self.textEdit.setText(response)
 
         self.statusBar().showMessage('요약 완료')
         global scan_cnt
@@ -160,7 +162,8 @@ class MainWindow(QMainWindow, form_class) :
 
     def initbtnreset(self):
         client.send_delete_signal()
-        self.label_summary.setText('')
+        #self.label_summary.setText('')
+        self.textEdit.clear()
         self.statusBar().showMessage('Ready')
         global scan_cnt
         scan_cnt = 0
