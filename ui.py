@@ -141,16 +141,21 @@ class MainWindow(QMainWindow, form_class) :
 
     # capture_image, callback 메소드 실행 후 socket open, scan_cnt 1 증가
     def on_capture_complete(self):
-        scan_size =  self.comboBox_size.currentIndex()
+        scan_size =  self.comboBox_size.currentText()
         if scan_size == 'size 1':
             client.send_file1()
+            self.statusBar().showMessage('size 1 스캔 완료')
         elif scan_size == 'size 2':
             client.send_file2()
+            self.statusBar().showMessage('size 2 스캔 완료')
+        elif scan_size == 'size 3':
+            client.send_file3()
+            self.statusBar().showMessage('size 3 스캔 완료')
 
         # global scan_cnt
         # scan_cnt += 1
         # self.statusBar().showMessage(f'현재까지 스캔된 페이지: {scan_cnt} 장')
-        self.statusBar().showMessage('스캔 완료')
+        # self.statusBar().showMessage('스캔 완료')
 
 
     def initbtnssummary(self):

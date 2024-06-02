@@ -95,12 +95,26 @@ def send_delete_signal(host='43.201.91.14', port=8080):
     response = client_socket.recv(1024).decode('utf-8')
     print(f"Server response: {response}")
 
+def receive_all(socket, buffer_size):
+    data = bytearray()
+    while True:
+        part = socket.recv(buffer_size)
+        if not part:
+            break
+        data.extend(part)
+        # Here we can check if we've received the expected length of data
+        # if we know the length in advance. Assuming we receive all data if
+        # the incoming part is less than the buffer size.
+        if len(part) < buffer_size:
+            break
+    return data
 
 def send_summary_signal(host='43.201.91.14', port=8080):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((host, port))
     client_socket.send(b'7')
-    response = client_socket.recv(1024).decode('utf-8')
+    buffer_size = 1024  # or other suitable size
+    response = receive_all(client_socket, buffer_size).decode('utf-16')
     print(response)
     return response
 
