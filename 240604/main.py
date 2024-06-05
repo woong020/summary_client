@@ -1,19 +1,20 @@
-# import .py
+# Source import
 import ui
 
-# import package
+# Pakage import
 import sys
 from PyQt5.QtWidgets import *
 from gpiozero import Button
 
-# GPIO Pin 번호 할당
+
 scan_button = Button(17)  # GPIO pin 17
 summary_button = Button(22)  # GPIO pin 27
 reset_button = Button(27)  # GPIO pin 22
 
+
 # 스캔 버튼을 누르면 호출되는 함수
 def scan_button_pressed():
-    mainWindow.handle_scan_button()
+    mainWindow.btn_scan.click()
 
 # 요약 버튼을 누르면 호출되는 함수
 def summary_button_pressed():
@@ -24,18 +25,26 @@ def reset_button_pressed():
     mainWindow.btn_reset.click()
 
 
-if __name__ == "__main__":
-    # QApplication : 프로그램을 실행시켜주는 클래스
+
+if __name__ == "__main__" :
+    #QApplication : 프로그램을 실행시켜주는 클래스
     app = QApplication(sys.argv)
 
-    # 인스턴스 생성 및 최대화
+    #인스턴스 생성
     mainWindow = ui.MainWindow()
     mainWindow.showMaximized()
 
-    # GPIO 버튼에 기능 할당
+    # 버튼에 기능 할당
     scan_button.when_pressed = scan_button_pressed
     summary_button.when_pressed = summary_button_pressed
     reset_button.when_pressed = reset_button_pressed
 
-    # 프로그램을 이벤트루프로 진입시키는(프로그램을 작동시키는) 코드
+
+    # 프로그램 화면을 보여주는 코드
+    # mainWindow.showMaximized()
+
+
+    #프로그램을 이벤트루프로 진입시키는(프로그램을 작동시키는) 코드
     app.exec_()
+
+
