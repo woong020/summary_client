@@ -84,12 +84,6 @@
             <bold>true</bold>
            </font>
           </property>
-          <property name="currentText">
-           <string>Size 2</string>
-          </property>
-          <property name="currentIndex">
-           <number>1</number>
-          </property>
           <item>
            <property name="text">
             <string notr="true">Size 1</string>
